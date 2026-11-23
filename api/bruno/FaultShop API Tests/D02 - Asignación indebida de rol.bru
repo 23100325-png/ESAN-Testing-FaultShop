@@ -1,0 +1,16 @@
+meta {
+  name: D02 - Asignación indebida de rol
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:5000/api/register
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  forwardAuthorizationHeader: false
+}
