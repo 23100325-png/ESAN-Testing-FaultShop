@@ -1,0 +1,17 @@
+# M02 - Plantilla a validar en el Android del equipo (Esteban)
+# Identifica selectores reales con Maestro Studio antes de presentarla como ejecutada.
+
+appId: com.swaglabsmobileapp
+---
+- launchApp:
+    clearState: true
+
+- tapOn: "Usuario"
+- inputText: "standard_user"
+
+- tapOn: "Contraseña"
+- inputText: "clave_incorrecta_123"
+
+- tapOn: "LOGIN"
+
+- assertVisible: ".*(no coinciden|no coincide|do not match).*"

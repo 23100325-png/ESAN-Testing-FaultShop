@@ -1,0 +1,36 @@
+meta {
+  name: A02 - Login incorrecto (Esteban)
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5000/api/login
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "username": "carlos",
+    "password": "clave_incorrecta_123"
+  }
+}
+
+tests {
+  test("A02 - Codigo HTTP 401", function () {
+    expect(res.getStatus()).to.equal(401);
+  });
+  test("A02 - Mensaje de rechazo", function () {
+    expect(res.getBody().error).to.equal("Invalid credentials");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
