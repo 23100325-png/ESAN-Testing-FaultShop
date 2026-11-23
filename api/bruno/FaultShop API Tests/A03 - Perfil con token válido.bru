@@ -1,0 +1,44 @@
+meta {
+  name: A03 - Perfil con token válido
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:5000/api/profile
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{authToken}}
+}
+
+tests {
+  test("A03 - El código HTTP es 200", function () {
+      expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("A03 - El usuario es carlos", function () {
+      const body = res.getBody();
+      expect(body.username).to.equal("carlos");
+  });
+  
+  test("A03 - El rol es user", function () {
+      const body = res.getBody();
+      expect(body.role).to.equal("user");
+  });
+  
+  test("A03 - El ID del usuario es válido", function () {
+      const body = res.getBody();
+      expect(body.user_id).to.be.a("number");
+      expect(body.user_id).to.be.greaterThan(0);
+  });
+  
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+  forwardAuthorizationHeader: false
+}
