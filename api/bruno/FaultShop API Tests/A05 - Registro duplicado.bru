@@ -1,0 +1,35 @@
+meta {
+  name: A05 - Registro duplicado
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:5000/api/register
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "carlos",
+    "password": "duplicate-test-password",
+    "email": "carlos.duplicate@example.com"
+  }
+}
+
+tests {
+  test("A05 - El código HTTP es 400", function () {
+      expect(res.getStatus()).to.equal(400);
+  });
+
+  test("A05 - El mensaje indica que el usuario ya existe", function () {
+      const body = res.getBody();
+      expect(body.error).to.equal("Username already taken");
+  });
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
